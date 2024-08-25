@@ -1,5 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import {
+    findCategoryById,
     findCategoryByName,
     readCategory,
     createCategory,
@@ -20,18 +21,18 @@ export const getCategories = async (
     }
 };
 
-export const getCategoryByName = async (
+export const getCategoryById = async (
     req: CategoryRequest,
     res: FastifyReply
 ) => {
     try {
-        const { name } = req.params;
+        const { id } = req.params;
 
-        if (!name) {
+        if (!id) {
             return res.code(400).send({ error: 'Category name is required' });
         }
 
-        const category = await findCategoryByName(name);
+        const category = await findCategoryById(id);
         if (!category) {
             return res.code(404).send({ error: 'Category not found' });
         }
@@ -68,28 +69,7 @@ export const postCategory = async (req: CategoryRequest, res: FastifyReply) => {
 
 export const putCategory = async (req: CategoryRequest, res: FastifyReply) => {
     try {
-        const { name, newName } = req.body;
-
-        if (!name || !newName) {
-            return res
-                .code(400)
-                .send({ error: 'Category name can not be empty' });
-        }
-
-        const categoryExists = await findCategoryByName(name);
-        if (!categoryExists) {
-            return res.code(400).send({ error: 'Category does not exists' });
-        }
-
-        const updatedCategory = await updateCategory(name, { name: newName });
-        return res.code(200).send(updatedCategory);
-    } catch (err) {
-        return res.code(400).send(err);
-    }
-};
-
-export const delCategory = async (req: CategoryRequest, res: FastifyReply) => {
-    try {
+        const { id } = req.params;
         const { name } = req.body;
 
         if (!name) {
@@ -98,12 +78,28 @@ export const delCategory = async (req: CategoryRequest, res: FastifyReply) => {
                 .send({ error: 'Category name can not be empty' });
         }
 
-        const categoryExists = await findCategoryByName(name);
+        const categoryExists = await findCategoryById(id);
         if (!categoryExists) {
             return res.code(400).send({ error: 'Category does not exists' });
         }
 
-        const deletedCategory = await deleteCategory(name);
+        const updatedCategory = await updateCategory(id, { name });
+        return res.code(200).send(updatedCategory);
+    } catch (err) {
+        return res.code(400).send(err);
+    }
+};
+
+export const delCategory = async (req: CategoryRequest, res: FastifyReply) => {
+    try {
+        const { id } = req.params;
+
+        const categoryExists = await findCategoryById(id);
+        if (!categoryExists) {
+            return res.code(400).send({ error: 'Post does not exists' });
+        }
+
+        const deletedCategory = await deleteCategory(id);
         res.code(204).send(deletedCategory);
     } catch (err) {
         return res.code(400).send(err);

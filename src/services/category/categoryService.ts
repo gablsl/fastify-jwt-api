@@ -13,21 +13,21 @@ export const createCategory = async (categoryData: { name: string }) => {
 };
 
 export const updateCategory = async (
-    name: string,
+    id: string,
     categoryData: { name: string }
 ) => {
     return await prisma.category.update({
         where: {
-            name,
+            id,
         },
         data: categoryData,
     });
 };
 
-export const deleteCategory = async (name: string) => {
+export const deleteCategory = async (id: string) => {
     return await prisma.category.delete({
         where: {
-            name,
+            id,
         },
     });
 };
@@ -35,5 +35,11 @@ export const deleteCategory = async (name: string) => {
 export const findCategoryByName = async (name: string) => {
     return await prisma.category.findUnique({
         where: { name },
+    });
+};
+
+export const findCategoryById = async (id: string) => {
+    return await prisma.category.findUnique({
+        where: { id },
     });
 };

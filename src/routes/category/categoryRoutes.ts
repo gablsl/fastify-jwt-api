@@ -1,4 +1,4 @@
-import { getCategoryByName } from './../../controllers/category/categoryController';
+import { getCategoryById } from './../../controllers/category/categoryController';
 import { FastifyPluginAsync, FastifyReply, FastifyRequest } from 'fastify';
 import {
     getCategories,
@@ -14,8 +14,8 @@ type CategoryHandler = (
 
 export const categoryRoutes: FastifyPluginAsync = async (fastify) => {
     fastify.get('/', getCategories);
-    fastify.get('/:name', getCategoryByName as CategoryHandler);
+    fastify.get('/:id', getCategoryById as CategoryHandler);
     fastify.post('/', postCategory as CategoryHandler);
-    fastify.put('/', putCategory as CategoryHandler);
-    fastify.delete('/', delCategory as CategoryHandler);
+    fastify.put('/:id', putCategory as CategoryHandler);
+    fastify.delete('/:id', delCategory as CategoryHandler);
 };
