@@ -105,7 +105,7 @@ export const delPost = async (req: PostRequest, res: FastifyReply) => {
         }
 
         const deletedPost = await deletePost(id);
-        res.code(201).send(deletedPost);
+        res.code(204).send(deletedPost);
     } catch (error) {
         res.code(500).send(error);
     }
