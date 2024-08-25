@@ -1,7 +1,7 @@
 import { FastifyPluginAsync, FastifyReply, FastifyRequest } from 'fastify';
 import {
     delUser,
-    getUserByUsername,
+    getUserById,
     getUsers,
     putUser,
     signUp,
@@ -11,8 +11,8 @@ type SignUpHandler = (req: FastifyRequest, res: FastifyReply) => Promise<void>;
 
 export const userRoutes: FastifyPluginAsync = async (fastify) => {
     fastify.get('/', getUsers);
-    fastify.get('/:username', getUserByUsername as SignUpHandler);
+    fastify.get('/:id', getUserById as SignUpHandler);
     fastify.post('/signup', signUp as SignUpHandler);
-    fastify.put('/', putUser as SignUpHandler);
-    fastify.delete('/', delUser as SignUpHandler);
+    fastify.put('/:id', putUser as SignUpHandler);
+    fastify.delete('/:id', delUser as SignUpHandler);
 };

@@ -7,6 +7,7 @@ import {
     createUser,
     deleteUser,
     findUserByEmail,
+    findUserById,
     findUserByUsername,
     getAllUsers,
     updateUser,
@@ -23,19 +24,12 @@ export const getUsers = async (_req: FastifyRequest, res: FastifyReply) => {
     }
 };
 
-export const getUserByUsername = async (
-    req: SignUpRequest,
-    res: FastifyReply
-) => {
+export const getUserById = async (req: SignUpRequest, res: FastifyReply) => {
     try {
-        const { username } = req.params;
+        const { id } = req.params;
 
-        if (!username) {
-            return res.code(400).send({ error: 'Username is required' });
-        }
-
-        const user = await findUserByUsername(username);
-        if (!username) {
+        const user = await findUserById(id);
+        if (!user) {
             return res.code(404).send({ error: 'User not found' });
         }
 
@@ -114,19 +108,20 @@ export const signIn = async (req: SignInRequest, res: FastifyReply) => {
 
 export const putUser = async (req: SignUpRequest, res: FastifyReply) => {
     try {
-        const { username, newUsername } = req.body;
+        const { id } = req.params;
+        const { username } = req.body;
 
-        if (!username || !newUsername) {
+        if (!username) {
             return res.code(400).send({ error: 'Username can not be empty' });
         }
 
-        const userExists = await findUserByUsername(username);
+        const userExists = await findUserById(id);
         if (!userExists) {
-            return res.code(400).send({ error: 'Category does not exists' });
+            return res.code(400).send({ error: 'Username does not exists' });
         }
 
-        const updatedUser = await updateUser(username, {
-            username: newUsername,
+        const updatedUser = await updateUser(id, {
+            username,
         });
         return res.code(200).send(updatedUser);
     } catch (err) {
@@ -136,18 +131,14 @@ export const putUser = async (req: SignUpRequest, res: FastifyReply) => {
 
 export const delUser = async (req: SignUpRequest, res: FastifyReply) => {
     try {
-        const { username } = req.body;
+        const { id } = req.params;
 
-        if (!username) {
-            return res.code(400).send({ error: 'Username can not be empty' });
-        }
-
-        const userExists = await findUserByUsername(username);
+        const userExists = await findUserById(id);
         if (!userExists) {
             return res.code(400).send({ error: 'User does not exists' });
         }
 
-        const deletedUser = await deleteUser(username);
+        const deletedUser = await deleteUser(id);
         res.code(204).send(deletedUser);
     } catch (err) {
         return res.code(400).send(err);

@@ -19,21 +19,21 @@ export const createUser = async (userData: {
 };
 
 export const updateUser = async (
-    username: string,
+    id: string,
     userData: { username: string }
 ) => {
     return await prisma.user.update({
         where: {
-            username,
+            id,
         },
         data: userData,
     });
 };
 
-export const deleteUser = async (username: string) => {
+export const deleteUser = async (id: string) => {
     return await prisma.user.delete({
         where: {
-            username,
+            id,
         },
     });
 };
@@ -47,5 +47,11 @@ export const findUserByUsername = async (username: string) => {
 export const findUserByEmail = async (email: string) => {
     return await prisma.user.findUnique({
         where: { email },
+    });
+};
+
+export const findUserById = async (id: string) => {
+    return await prisma.user.findUnique({
+        where: { id },
     });
 };

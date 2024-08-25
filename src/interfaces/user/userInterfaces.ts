@@ -5,13 +5,12 @@ export interface SignUpRequest extends FastifyRequest {
     body: {
         name: string;
         username: string;
-        newUsername: string;
         email: string;
         password: string;
         confirmPassword: string;
     };
     params: {
-        username: string;
+        id: string;
     };
 }
 
