@@ -18,6 +18,26 @@ export const createUser = async (userData: {
     });
 };
 
+export const updateUser = async (
+    username: string,
+    userData: { username: string }
+) => {
+    return await prisma.user.update({
+        where: {
+            username,
+        },
+        data: userData,
+    });
+};
+
+export const deleteUser = async (username: string) => {
+    return await prisma.user.delete({
+        where: {
+            username,
+        },
+    });
+};
+
 export const findUserByUsername = async (username: string) => {
     return await prisma.user.findUnique({
         where: { username },
