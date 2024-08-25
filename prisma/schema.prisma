@@ -20,13 +20,14 @@ model User {
 model Post {
   id         String    @id @default(uuid())
   imageUrl   String
-  title      String
+  title      String    @unique
+  content    String
   createdAt  DateTime  @default(now())
   updatedAt  DateTime? @updatedAt
   author     User      @relation(fields: [authorId], references: [id])
   authorId   String
-  Category   Category? @relation(fields: [categoryId], references: [id])
-  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId String
 }
 
 model Category {
