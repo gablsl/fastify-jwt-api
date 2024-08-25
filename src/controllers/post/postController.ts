@@ -4,7 +4,10 @@ import {
     findPostById,
     updatePost,
 } from './../../services/post/postService';
-import { PostRequest } from './../../interfaces/post/postInterfaces';
+import {
+    PostRequest,
+    PostRequestBody,
+} from './../../interfaces/post/postInterfaces';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { readAllPost } from '../../services/post/postService';
 
@@ -70,19 +73,20 @@ export const postPost = async (req: PostRequest, res: FastifyReply) => {
     }
 };
 
-export const putPost = async (req: PostRequest, res: FastifyReply) => {
+export const putPost = async (req: PostRequestBody, res: FastifyReply) => {
     try {
-        const { id, imageUrl, title, content } = req.body;
+        const { id } = req.params;
+        const { imageUrl, title, content } = req.body as PostRequestBody;
 
         const postExists = await findPostById(id);
         if (!postExists) {
-            return res.code(400).send({ error: 'Category does not exists' });
+            return res.code(400).send({ error: 'Post does not exists' });
         }
 
-        const updatedPost = await updatePost(imageUrl, title, content, {
-            imageUrl: imageUrl,
-            title: title,
-            content: content,
+        const updatedPost = await updatePost(id, {
+            imageUrl,
+            title,
+            content,
         });
 
         return res.code(200).send(updatedPost);

@@ -13,6 +13,6 @@ export const postRoutes: FastifyPluginAsync = async (fastify) => {
     fastify.get('/', getPosts);
     fastify.get('/:id', getPostByTitle as PostHandler);
     fastify.post('/', postPost as PostHandler);
-    fastify.put('/', putPost as PostHandler);
+    fastify.put('/:id', putPost as PostHandler);
     fastify.delete('/:id', delPost as PostHandler);
 };

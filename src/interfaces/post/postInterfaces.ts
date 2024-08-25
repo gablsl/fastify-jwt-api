@@ -13,3 +13,12 @@ export interface PostRequest extends FastifyRequest {
         id: string;
     };
 }
+
+export interface PostRequestBody extends FastifyRequest {
+    imageUrl?: string;
+    title?: string;
+    content?: string;
+    params: {
+        id: string;
+    };
+}

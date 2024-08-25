@@ -31,16 +31,12 @@ export const createPost = async (postData: {
 };
 
 export const updatePost = async (
-    imageUrl: string,
-    title: string,
-    content: string,
+    id: string,
     postData: { imageUrl?: string; title?: string; content?: string }
 ) => {
     return await prisma.post.update({
         where: {
-            imageUrl,
-            title,
-            content,
+            id,
         },
         data: postData,
     });
