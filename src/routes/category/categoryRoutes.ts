@@ -1,7 +1,9 @@
 import { FastifyPluginAsync, FastifyReply, FastifyRequest } from 'fastify';
 import {
     getCategories,
-    createCategory,
+    postCategory,
+    putCategory,
+    delCategory,
 } from '../../controllers/category/categoryController';
 
 type CategoryHandler = (
@@ -11,5 +13,7 @@ type CategoryHandler = (
 
 export const categoryRoutes: FastifyPluginAsync = async (fastify) => {
     fastify.get('/', getCategories);
-    fastify.post('/', createCategory as CategoryHandler);
+    fastify.post('/', postCategory as CategoryHandler);
+    fastify.put('/', putCategory as CategoryHandler);
+    fastify.delete('/', delCategory as CategoryHandler);
 };
