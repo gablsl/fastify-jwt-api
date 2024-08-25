@@ -5,4 +5,7 @@ export interface CategoryRequest extends FastifyRequest {
         name: string;
         newName: string;
     };
+    params: {
+        name: string;
+    };
 }

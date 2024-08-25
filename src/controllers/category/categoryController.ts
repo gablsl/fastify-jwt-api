@@ -20,6 +20,28 @@ export const getCategories = async (
     }
 };
 
+export const getCategoryByName = async (
+    req: CategoryRequest,
+    res: FastifyReply
+) => {
+    try {
+        const { name } = req.params;
+
+        if (!name) {
+            return res.code(400).send({ error: 'Category name is required' });
+        }
+
+        const category = await findCategoryByName(name);
+        if (!category) {
+            return res.code(404).send({ error: 'Category not found' });
+        }
+
+        return res.code(200).send(category);
+    } catch (err) {
+        return res.code(400).send(err);
+    }
+};
+
 export const postCategory = async (req: CategoryRequest, res: FastifyReply) => {
     try {
         const { name } = req.body;
