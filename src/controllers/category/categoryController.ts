@@ -28,10 +28,6 @@ export const getCategoryById = async (
     try {
         const { id } = req.params;
 
-        if (!id) {
-            return res.code(400).send({ error: 'Category name is required' });
-        }
-
         const category = await findCategoryById(id);
         if (!category) {
             return res.code(404).send({ error: 'Category not found' });
