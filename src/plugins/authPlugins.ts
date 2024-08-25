@@ -1,5 +1,5 @@
 import { FastifyPluginAsync, FastifyReply } from 'fastify';
-import { AuthUserRequest } from '../interfaces/userInterfaces';
+import { AuthUserRequest } from '../interfaces/user/userInterfaces';
 import jwt from 'jsonwebtoken';
 
 export const authPlugin: FastifyPluginAsync = async (fastify) => {

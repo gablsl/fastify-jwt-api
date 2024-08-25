@@ -3,8 +3,8 @@ import {
     findCategoryByName,
     getAllCategories,
     newCategory,
-} from '../services/categoryService';
-import { CategoryRequest } from '../interfaces/categoryInterfaces';
+} from '../../services/category/categoryService';
+import { CategoryRequest } from '../../interfaces/category/categoryInterfaces';
 
 export const getCategories = async (
     _req: FastifyRequest,

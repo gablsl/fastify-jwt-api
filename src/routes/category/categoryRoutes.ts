@@ -2,7 +2,7 @@ import { FastifyPluginAsync, FastifyReply, FastifyRequest } from 'fastify';
 import {
     getCategories,
     createCategory,
-} from '../controllers/categoryController';
+} from '../../controllers/category/categoryController';
 
 type CategoryHandler = (
     req: FastifyRequest,

@@ -1,11 +1,14 @@
-import { SignInRequest, SignUpRequest } from '../interfaces/userInterfaces';
+import {
+    SignInRequest,
+    SignUpRequest,
+} from '../../interfaces/user/userInterfaces';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import {
     createUser,
     findUserByEmail,
     findUserByUsername,
     getAllUsers,
-} from '../services/userService';
+} from '../../services/user/userService';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 

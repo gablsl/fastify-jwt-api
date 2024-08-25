@@ -1,5 +1,5 @@
 import { FastifyPluginAsync, FastifyReply, FastifyRequest } from 'fastify';
-import { getUsers, signUp } from '../controllers/userController';
+import { getUsers, signUp } from '../../controllers/user/userController';
 
 type SignUpHandler = (req: FastifyRequest, res: FastifyReply) => Promise<void>;
 
