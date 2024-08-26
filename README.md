@@ -1,6 +1,6 @@
 # 🧿 Fastify JWT API
 
-> This is a RESTful API built using Fastify, TypeScript, and Prisma, with PostgreSQL as the database. The API supports user authentication with JWT tokens and includes a private route that allows users to post only if they are authenticated.
+> RESTful API built using Fastify, TypeScript, and Prisma, with PostgreSQL as the database. The API supports user authentication with JWT tokens and includes a private route that allows users to post only if they are authenticated.
 
 ## ⚙️ Features
 
@@ -56,7 +56,3 @@
 5. Open a Pull Request
 
 Developed with ❤️ Gabriel
-
-```
-
-```
