@@ -17,34 +17,48 @@
 
 ## 📦 How to Run the Project
 
-1. Clone the repository:
+1. If you want, pull the images
 
     ```bash
-    git clone https://github.com/gablsl/fastify-jwt-api.git
+    docker pull gabrielsousadeveloper/fastify-blog-api:1.0.0
+    docker pull gabrielsousadeveloper/postgres-blog-database:1.0.0
 
     ```
 
-2. Install dependencies using npm
+2. Create a directory and set up your docker-compose.yml
 
     ```bash
-    npm install
+    service:
+        postgres:
+            image: gabrielsousadeveloper/postgres-blog-database:1.0.0
+        environment:
+            POSTGRES_USER: YOUR-USER
+            POSTGRES_PASSWORD: YOUR-PASSWORD
+            POSTGRES_DB: YOUR-DATABASE-NAME
+        ports:
+            - 5432:5432
+
+        app:
+            image: gabrielsousadeveloper/fastify-blog-api:1.0.0
+            ports:
+                - '3000:3000'
+            environment:
+                FASTIFY_DATABASE_URL: 'postgresql://YOUR-USER:YOUR-PASSWORD@postgres:5432/YOUR-DATABASE-NAME?schema=public'
+                FASTIFY_PORT: YOUR-PORT * Recommend 3000 port
+                FASTIFY_JWT_SECRET: 'YOUR-CLIENT-SECRET' * Bang your head on keyboard =)
+            command: sh -c 'npx prisma generate && npx prisma migrate dev --name init && npm run start'
+            depends_on:
+                - postgres
 
     ```
 
 3. Set up environment variables:
 
--   Create a .env file in the root of the project and add the necessary environment variables.
+-   Run docker
 
     ```bash
-    FASTIFY_DATABASE_URL="YOUR_DATABASE_URL"
-    FASTIFY_JWT_SECRET="YOUR_CLIENT_SECRET"
-    FASTIFY_PORT="YOUR_PORT"
+    docker-compose up
 
-    ```
-
-4. Start the development server
-    ```bash
-    npm run dev
     ```
 
 ## 🤝 **How to contribute?**
