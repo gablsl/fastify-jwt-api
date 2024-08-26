@@ -20,13 +20,15 @@
 1. Create a directory and set up your docker-compose.yml
 
     ```bash
-    service:
+    version: '3.0'
+
+    services:
         postgres:
             image: gabrielsousadeveloper/postgres-blog-database:1.0.0
         environment:
-            POSTGRES_USER: YOUR-USER
-            POSTGRES_PASSWORD: YOUR-PASSWORD
-            POSTGRES_DB: YOUR-DATABASE-NAME
+            POSTGRES_USER: user
+            POSTGRES_PASSWORD: password
+            POSTGRES_DB: mydb
         volumes:
             - postgres_data:/var/lib/postgresql/POSTGRES-VOLUME-NAME
         ports:
@@ -34,23 +36,21 @@
 
         app:
             image: gabrielsousadeveloper/fastify-blog-api:1.0.0
-            ports:
-                - '3000:3000'
-            environment:
-                FASTIFY_DATABASE_URL: 'postgresql://YOUR-USER:YOUR-PASSWORD@postgres:5432/YOUR-DATABASE-NAME?schema=public'
-                FASTIFY_PORT: YOUR-PORT * Recommend 3000 port
-                FASTIFY_JWT_SECRET: 'YOUR-CLIENT-SECRET' * Bang your head on keyboard =)
-            command: sh -c 'npx prisma generate && npx prisma migrate dev --name init && npm run start'
-            depends_on:
-                - postgres
-
+        ports:
+            - '3000:3000'
+        environment:
+            FASTIFY_DATABASE_URL: 'postgresql://YOUR-USER:YOUR-PASSWORD@postgres:5432/YOUR-DATABASE-NAME?schema=public'
+            FASTIFY_PORT: YOUR-PORT * Recommend 3000 port
+            FASTIFY_JWT_SECRET: 'YOUR-CLIENT-SECRET' * Bang your head on keyboard =)
+        command: sh -c 'npx prisma generate && npx prisma migrate dev --name init && npm run start'
+        depends_on:
+            - postgres
     ```
 
 2. Run docker:
 
     ```bash
     docker-compose up
-
     ```
 
 ## 🤝 **How to contribute?**
