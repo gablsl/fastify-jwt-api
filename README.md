@@ -27,6 +27,8 @@
             POSTGRES_USER: YOUR-USER
             POSTGRES_PASSWORD: YOUR-PASSWORD
             POSTGRES_DB: YOUR-DATABASE-NAME
+        volumes:
+            - postgres_data:/var/lib/postgresql/POSTGRES-VOLUME-NAME
         ports:
             - '5432:5432'
 
