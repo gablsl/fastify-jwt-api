@@ -17,15 +17,7 @@
 
 ## 📦 How to Run the Project
 
-1. If you want, pull the images
-
-    ```bash
-    docker pull gabrielsousadeveloper/fastify-blog-api:1.0.0
-    docker pull gabrielsousadeveloper/postgres-blog-database:1.0.0
-
-    ```
-
-2. Create a directory and set up your docker-compose.yml
+1. Create a directory and set up your docker-compose.yml
 
     ```bash
     service:
@@ -36,7 +28,7 @@
             POSTGRES_PASSWORD: YOUR-PASSWORD
             POSTGRES_DB: YOUR-DATABASE-NAME
         ports:
-            - 5432:5432
+            - '5432:5432'
 
         app:
             image: gabrielsousadeveloper/fastify-blog-api:1.0.0
@@ -52,9 +44,7 @@
 
     ```
 
-3. Set up environment variables:
-
--   Run docker
+2. Run docker:
 
     ```bash
     docker-compose up
