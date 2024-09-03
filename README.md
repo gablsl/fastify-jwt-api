@@ -1,6 +1,6 @@
 # 🧿 Fastify JWT API
 
-> RESTful API built using Fastify, TypeScript, and Prisma, with PostgreSQL as the database. The API supports user authentication with JWT tokens and includes a private route that allows users to post only if they are authenticated.
+> Robust REST API using Fastify, NodeJS and TypeScript, with Prisma as ORM, to manage a complete blog. The project includes the implementation of a CRUD for categories, users and posts, ensuring that only users authenticated by JWT can create posts, increasing the security and integrity of the system. Dotenv was used to manage environment variables and bcrypt to ensure the protection of users' sensitive data. The API was containerized with Docker and is available on Docker Hub, facilitating its distribution and deployment in different environments. This API is scalable, secure and ready to be integrated into any front-end or mobile application.
 
 ## ⚙️ Features
 
@@ -30,7 +30,7 @@
                 POSTGRES_PASSWORD: YOUR-PASSWORD
                 POSTGRES_DB: YOUR-DATABASE
             volumes:
-                - postgres_data:/var/lib/postgresql/DATA-NAME
+                - postgres_data:/var/lib/postgresql/data
             ports:
                 - '5432:5432'
 
@@ -40,7 +40,7 @@
                 - '3000:3000'
             environment:
                 FASTIFY_DATABASE_URL: 'postgresql://YOUR-USER:YOUR-PASSWORD@postgres:5432/YOUR-DATABASE?schema=public'
-                FASTIFY_PORT: YOUR-PORT * Recommend 3000 port
+                FASTIFY_PORT: 3000
                 FASTIFY_JWT_SECRET: 'YOUR-CLIENT-SECRET' * Bang your head on keyboard =)
             command: sh -c 'npx prisma generate && npx prisma migrate dev --name init && npm run start'
             depends_on:
